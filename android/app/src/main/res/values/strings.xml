@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">issueCapacitorCamera</string>
-    <string name="title_activity_main">issueCapacitorCamera</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">Laboratorio Etcheverry</string>
+    <string name="title_activity_main">Laboratorio Etcheverry</string>
+    <string name="package_name">laboratorio.etcheverry.ripit.cl</string>
+    <string name="custom_url_scheme">laboratorio.etcheverry.ripit.cl</string>
 </resources>

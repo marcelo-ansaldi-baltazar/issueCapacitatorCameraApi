@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon name="globe"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="text-center">Atenciones y resultadoss</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToMedicosIndex()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Paciente</ion-label>
+    <ionic-selectable
+      item-content
+      headerColor="danger"
+      [(ngModel)]="paciente"
+      itemValueField="ID_PERSONA"
+      itemTextField="NOMBRES"
+      [items]="pacientes"
+      [isMultiple]="false"
+      [canSearch]="true"
+      searchPlaceholder="Buscar por nombre o rut"
+      searchFailText="No hay resultados para esta búsqueda."
+      (onSearch)="buscarPacientes($event)">´
+      
+      <!-- TEMPLATE PARA EL LABEL DE EL (LOS) ITEM(S) SELECCIONADOS -->
+      <ng-template ionicSelectableCloseButtonTemplate>
+        <ion-icon name="close-circle"></ion-icon>
+      </ng-template>
+      <!-- TEMPLATE PARA EL LABEL DE EL (LOS) ITEM(S) SELECCIONADOS -->
+      <ng-template ionicSelectableItemTemplate let-empleado="item">
+        {{empleado.RUT}} 
+        {{empleado.NOMBRE_COMPLETO}}
+      </ng-template>
+      <!-- TEMPLATE PARA EL LABEL DE EL (LOS) ITEM(S) SELECCIONADOS -->
+      <ng-template ionicSelectableValueTemplate let-empleado="value"> 
+        {{empleado.RUT}} 
+      </ng-template>
+    </ionic-selectable>
+  </ion-item>
+  <br>
+
+  <div style="text-align: center !important;">
+    <ion-button *ngIf="paciente" (click)="getAtencionesPaciente()" size="medium" color="danger">Cargar Atenciones</ion-button>
+  </div>
+
+  <br>
+  
+  <ion-list class="ion-no-padding">
+    <ion-item lines="none" *ngFor="let atencion of atenciones">
+      <ion-grid fixed>
+        <ion-row style="background-color: #e0d9d9; font-size: 12px;">
+          <ion-col size="12">
+            {{ atencion.fecha }}
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let detalle of atencion.detalles" style="background-color: #f0efef; font-size: 12px;">
+          <ion-col size="5">
+            ATENCIÓN: <b>{{ detalle.ID_ATENCION }}</b>
+          </ion-col>
+          <ion-col size="5">
+            LOCAL: <b>{{ detalle.NOMBRE }}</b>
+          </ion-col>
+          <ion-col size="2">
+            <ion-tab-button (click)="abrirPDF(detalle.URL)" style="padding-bottom: 10px;">
+              <ion-icon size="small" name="download-outline"></ion-icon>
+            </ion-tab-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<app-footer></app-footer>

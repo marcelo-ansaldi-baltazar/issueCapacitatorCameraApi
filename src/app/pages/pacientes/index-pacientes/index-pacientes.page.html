@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon name="globe"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="text-center">Menú de Paciente</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label class="ion-text-center ion-padding">
+    <h1><b>Bienvenido(a)</b></h1>
+    <h1> {{user.NOMBRE}} </h1>
+    <!-- <h2>Empresa {{user.empresa}} </h2> -->
+  </ion-label>
+  <ion-list>
+    <ion-item (click)="goToConsultaAtenciones()">
+      <ion-label floating>
+        <ion-icon name="add" item-start></ion-icon>
+        Consulta de Atenciones
+      </ion-label>
+    </ion-item>
+    <ion-item (click)="goToCotizarExamen2()">
+      <ion-label floating>
+        <ion-icon name="add" item-start></ion-icon>
+        Cotizar Examen
+      </ion-label>
+    </ion-item>
+    <!-- <ion-item (click)="goToListadoCotizaciones()">
+      <ion-label floating>
+        <ion-icon name="add" item-start></ion-icon>
+        Listado Cotizaciones
+      </ion-label>
+    </ion-item> -->
+  </ion-list>
+</ion-content>
+
+<app-footer></app-footer>

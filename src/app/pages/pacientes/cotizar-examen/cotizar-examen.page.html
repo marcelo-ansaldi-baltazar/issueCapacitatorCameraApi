@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon name="globe"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="text-center">Cotizar exámen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToPacientesIndex()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="ion-text-center">
+    <p>Para poder cotizar su examen correctamente, adjunte una imagen o foto de la orden médica.</p>
+  </div>
+
+  <div *ngIf="imagenes.length < 1" style="text-align: center !important;">
+    <ion-button color="danger" (click)="adjuntarFoto()">
+      <ion-icon slot="start" name="camera"></ion-icon>
+        Adjuntar
+    </ion-button>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let imagen of imagenes; let i=index;" text-wrap>
+      <ion-thumbnail slot="start">
+        <ion-img [src]="imagen.webviewPath"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        {{ imagen.filename }}
+      </ion-label>
+      <ion-button slot="end" fill="clear" (click)="confirmBorrarImagen(imagen)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="imagenes.length !== 0" class="ion-text-center">
+    <p>Esta orden médica se enviará junto con sus datos personales y de contacto para ser 
+       revisada por nuestras secretarias, las cuales se pondrán en contacto con usted a la brevedad para brindarles la mejor atencion.</p>
+  </div>
+
+  <div *ngIf="imagenes.length !== 0" style="text-align: center !important;">
+    <ion-button color="danger" (click)="confirmIniciarSubida()">
+      <ion-icon slot="start" name="cloud-upload"></ion-icon>
+      Solicitar cotización
+    </ion-button>
+  </div>
+</ion-content>
+
+<app-footer></app-footer>

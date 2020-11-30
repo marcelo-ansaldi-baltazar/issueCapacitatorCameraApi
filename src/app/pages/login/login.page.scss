@@ -1,0 +1,33 @@
+.scroll-content{
+  margin-bottom: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+ion-list {
+  --ion-background-color:rgba(0, 0, 0, 0);
+}
+
+ion-item {
+  --ion-background-color:rgba(71, 67, 67, 0.45);
+}
+
+ion-input{
+  --placeholder-color: white;
+  --placeholder-opacity: 1;
+}
+
+// ion-content.background {
+//   padding-bottom: 0 !important;
+//   background-image: url(src/assets/img/bg_login.jpg) !important;
+//   height: 100% auto !important;
+//   // width: 100% !important;
+//   background-repeat: no-repeat;
+//   background-image: cover !important;
+//   background-size: cover !important;
+//   background-position: center;
+//   position: fixed ;
+// }
+
+ion-content {
+  --background: url('/assets/img/bg_login.jpg') no-repeat center/cover fixed;
+}

@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon name="globe"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="text-center">Atenciones</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToPacientesIndex()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <div *ngIf="!atenciones; then templateAtencionesFalse else templateAtenciones"> </div>
+
+  <ng-template templateAtencionesFalse>
+    <p class="ion-text-center "> No tiene ninguna atención </p>
+  </ng-template>
+
+  <ng-template #templateAtenciones>
+    <ion-list class="ion-no-padding">
+      <ion-item lines="none" *ngFor="let atencion of atenciones">
+        <ion-grid fixed>
+          <ion-row style="background-color: #e0d9d9; font-size: 12px;">
+            <ion-col size="12">
+              {{ atencion.fecha }}
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let detalle of atencion.detalles" style="background-color: #f0efef; font-size: 12px;">
+            <ion-col size="5">
+              ATENCIÓN: <b>{{ detalle.ID_ATENCION }}</b>
+            </ion-col>
+            <ion-col size="5">
+              LOCAL: <b>{{ detalle.NOMBRE }}</b>
+            </ion-col>
+            <ion-col size="2">
+              <ion-tab-button (click)="abrirPDF(detalle.URL)" style="padding-bottom: 10px;">
+                <ion-icon size="small" name="download-outline"></ion-icon>
+              </ion-tab-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+
+</ion-content>
+
+<app-footer></app-footer>
