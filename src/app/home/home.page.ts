@@ -11,6 +11,7 @@ const { Camera, Filesystem, Storage } = Plugins;
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage {
 
   imagenes = [];
@@ -20,7 +21,6 @@ export class HomePage {
 
   constructor(
     private actionSheetController: ActionSheetController, 
-    private toastController: ToastController,
     private router: Router,
     private alertController: AlertController,
     private platform: Platform,
@@ -36,7 +36,6 @@ export class HomePage {
     await this.loadingService.presentLoading();
     const photoList = await Storage.get({ key: this.PHOTO_STORAGE });
     this.imagenes = JSON.parse(photoList.value) || [];
-    console.log(this.imagenes);
     if(this.imagenes.length > 0) {
       const response = await fetch(this.imagenes[0].blobString);
       this.imagenes[0].blobData = await response.blob();
@@ -64,7 +63,12 @@ export class HomePage {
   }
 
   private async obtenerFoto(origenFoto: CameraSource) {
-    const capturedPhoto = await Camera.getPhoto({ resultType: CameraResultType.Uri, source: origenFoto, quality: 100, saveToGallery: true });
+    const capturedPhoto = await Camera.getPhoto({ 
+      resultType: CameraResultType.Uri, 
+      source: origenFoto, 
+      quality: 100, 
+      saveToGallery: true 
+    });
     await this.loadingService.presentLoading();
     // Save the picture and add it to photo collection
     const archivoImagenGuardada = await this.savePicture(capturedPhoto);
@@ -125,17 +129,6 @@ export class HomePage {
     };
     reader.readAsDataURL(blob);
   });
-
-
-
-
-
-
-
-
-
-
-  
 
   async confirmBorrarImagen(imagen) {
     const alert = await this.alertController.create({
