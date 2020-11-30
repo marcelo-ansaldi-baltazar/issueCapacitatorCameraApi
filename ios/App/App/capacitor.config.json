@@ -1,0 +1,13 @@
+{
+  "appId": "laboratorio.etcheverry.ripit.cl",
+  "appName": "Laboratorio Etcheverry",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}
