@@ -11,9 +11,8 @@ const TOKEN_KEY = 'access_token';
 })
 export class AtencionesService {
 
-  public empleados: any[];
+  public pacientes: any[];
   private atenciones: any[];
-  private token = '';
 
   constructor(
     private http: HttpClient,
@@ -26,6 +25,7 @@ export class AtencionesService {
     let params = new HttpParams().set('id_persona', id_persona);
     return this.http.get(url, { params }).pipe(
       map(results => {
+        console.log(results);
         return results;
       }),
       catchError(err => {
@@ -34,19 +34,20 @@ export class AtencionesService {
     );
   }
 
-  getAtencionesMedico(id_persona: string): Observable<any> {
-    const url = "https://ripit.cl:8772/atenciones/atencionesMedico";
-    // const url = 'https://cheultest.ripit.cl:8770/atenciones/atencionesMedico';
-    let params = new HttpParams().set('id_persona', id_persona);
-    return this.http.get(url, { params }).pipe(
-      map(results => {
-        return results;
-      }),
-      catchError(err => {
-        return throwError(err);
-      })
-    );
-  }
+  // getAtencionesMedico(id_persona: string): Observable<any> {
+  //   const url = "https://ripit.cl:8772/atenciones/atencionesMedico";
+  //   // const url = 'https://cheultest.ripit.cl:8770/atenciones/atencionesMedico';
+  //   let params = new HttpParams().set('id_persona', id_persona);
+  //   return this.http.get(url, { params }).pipe(
+  //     map(results => {
+  //       console.log(results);
+  //       return results;
+  //     }),
+  //     catchError(err => {
+  //       return throwError(err);
+  //     })
+  //   );
+  // }
 
   // obtiene los empleados para buscarlos en el ionic-selectable
   getPacientes(id_medico): Observable<any> {
@@ -73,13 +74,13 @@ export class AtencionesService {
 
 
   getPacientesSelect(page?: number, size?: number): any[] {
-    let empleadosFiltrados = [];
-    this.empleados.forEach(empleado => {
-      empleadosFiltrados.push(empleado);
+    let pacientesFiltrados = [];
+    this.pacientes.forEach(empleado => {
+      pacientesFiltrados.push(empleado);
     });
     if (page && size) {
-      empleadosFiltrados = empleadosFiltrados.slice((page - 1) * size, ((page - 1) * size) + size);
+      pacientesFiltrados = pacientesFiltrados.slice((page - 1) * size, ((page - 1) * size) + size);
     }
-    return empleadosFiltrados;
+    return pacientesFiltrados;
   }
 }

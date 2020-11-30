@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { Subscription } from 'rxjs';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-l-atenciones-pacientes',
@@ -16,9 +17,9 @@ export class LAtencionesPacientesPage implements OnInit {
   user = null;
   atenciones: any[];
   fechas: any[];
-  pacientes: any[]; // ARRAY DE EMPLEADOS FILT QUE DEVOLVERÁ EL SELECT 
+  pacientes: any[]; // ARRAY DE PACIENTES FILT QUE DEVOLVERÁ EL SELECT 
   paciente: any; // EMPLEADO QUE SE ELIGIRÁ EN EL SELECT
-  empleadoSubscription: Subscription; // SUBSCRIPCIÓN A LA FUNCION ASYNCRONA QUE BUSCA LOS EMPLEADOS (SOLO SE UTILIZA EN LA BÚSQUEDA)
+  empleadoSubscription: Subscription; // SUBSCRIPCIÓN A LA FUNCION ASYNCRONA QUE BUSCA LOS PACIENTES (SOLO SE UTILIZA EN LA BÚSQUEDA)
 
   constructor(
     private authService: AuthService,
@@ -31,7 +32,8 @@ export class LAtencionesPacientesPage implements OnInit {
     this.user = this.authService.getUsuario();
     this.atencionesService.getPacientes(this.user.ID_PERSONA).subscribe(res => {
       //console.log(res);
-      this.atencionesService.empleados = res;
+      this.atencionesService.pacientes = res;
+      console.log(this.atencionesService.pacientes);
     }, (err) => {
       console.warn(err);
     });
@@ -56,20 +58,20 @@ export class LAtencionesPacientesPage implements OnInit {
       event.component.endSearch();
       return;
     }
-    this.empleadoSubscription = this.atencionesService.getPacientesAsync().subscribe(ports => {
+    this.empleadoSubscription = this.atencionesService.getPacientesAsync().subscribe(pacientes => {
       // Subscription will be closed when unsubscribed manually.
       if (this.empleadoSubscription.closed) {
         return;
       }
-      event.component.items = this.filtrarPacientes(ports, text);
+      event.component.items = this.filtrarPacientes(pacientes, text);
       event.component.endSearch();
     });
   }
 
-  filtrarPacientes(empleados: any[], text: string) {
-    return empleados.filter(empleado => {
-      return empleado.NOMBRE_COMPLETO.toLowerCase().indexOf(text) !== -1 ||
-      empleado.RUT.toLowerCase().indexOf(text) !== -1;
+  filtrarPacientes(pacientes: any[], text: string) {
+    return pacientes.filter(paciente => {
+      return paciente.NOMBRE_COMPLETO.toLowerCase().indexOf(text) !== -1 ||
+      paciente.RUT.indexOf(text) !== -1;
     });
   }
 

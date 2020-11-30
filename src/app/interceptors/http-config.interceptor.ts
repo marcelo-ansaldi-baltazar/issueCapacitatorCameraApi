@@ -45,7 +45,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
             console.error(error);
             this.dismissLoading();
             // Presentamos un toast con el mensaje de error
-            this.presentErrorToast('Ha habido un problema');
+            //this.presentErrorToast('Oops, ha habido un problema');
             return throwError(error);
           })
         );
@@ -58,8 +58,8 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     const toast = await this.toastCtrl.create({
       message: msg,
       duration: 3000,
-      position: 'bottom',
-      color: 'danger',
+      position: 'top',
+      color: 'dark',
       cssClass: 'toast',
     });
     toast.present();

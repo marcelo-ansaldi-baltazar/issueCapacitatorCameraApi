@@ -26,6 +26,7 @@ export class CotizarExamenPage implements OnInit {
     private router: Router,
     private cotizacionesService: CotizacionesService,
     private authService: AuthService,
+    private toastController: ToastController,
     private alertController: AlertController,
     private platform: Platform,
     private loadingService: LoadingService,
@@ -175,57 +176,57 @@ export class CotizarExamenPage implements OnInit {
     });
   }
 
-  // async confirmIniciarSubida() {
-  //   const alert = await this.alertController.create({
-  //     header: 'Confirmación',
-  //     message: '¿Desea enviar una cotización online con esta imagen y sus datos de paciente?',
-  //     buttons: [
-  //       {
-  //         text: 'Cancelar',
-  //         role: 'cancel',
-  //         cssClass: 'secondary',
-  //         handler: () => {
-  //           return false;
-  //         }
-  //       },
-  //       {
-  //         text: 'Ok',
-  //         handler: async () => {
-  //           const formData = new FormData();
-  //           formData.append('file', this.imagenes[0].blobData, this.imagenes[0].filename);
-  //           formData.append('ID_CLIENTE', this.user.ID_PERSONA);
-  //           formData.append('ID_PREVISION', this.user.ID_PREVISION);
-  //           formData.append('MAIL', this.user.MAIL);
-  //           formData.append('NOMBRE', this.formatearNombre(this.user.NOMBRE));
-  //           this.cotizacionesService.enviarCotizacion(formData).subscribe(res => {
-  //             this.presentToast('Operación exitosa. La cotización será respondida a su correo electrónico: '+this.user.MAIL);
-  //             this.borrarImagen(this.imagenes[0]);
-  //           }, (err) => {
-  //             console.warn(err);
-  //           });
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   await alert.present();
-  // }
+  async confirmIniciarSubida() {
+    const alert = await this.alertController.create({
+      header: 'Confirmación',
+      message: '¿Desea enviar una cotización online con esta imagen y sus datos de paciente?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            return false;
+          }
+        },
+        {
+          text: 'Ok',
+          handler: async () => {
+            const formData = new FormData();
+            formData.append('file', this.imagenes[0].blobData, this.imagenes[0].filename);
+            formData.append('ID_CLIENTE', this.user.ID_PERSONA);
+            formData.append('ID_PREVISION', this.user.ID_PREVISION);
+            formData.append('MAIL', this.user.MAIL);
+            formData.append('NOMBRE', this.formatearNombre(this.user.NOMBRE));
+            this.cotizacionesService.enviarCotizacion(formData).subscribe(res => {
+              this.presentToast('Operación exitosa. La cotización será respondida a su correo electrónico: '+this.user.MAIL);
+              this.borrarImagen(this.imagenes[0]);
+            }, (err) => {
+              console.warn(err);
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 
-  // async presentToast(text) {
-  //   const toast = await this.toastController.create({
-  //     message: text,
-  //     position: 'bottom',
-  //     duration: 8000
-  //   });
-  //   toast.present();
-  // }
-  // formatearNombre(nombre: string) {
-  //   return nombre.replace(
-  //     /\w\S*/g,
-  //     function(txt) {
-  //       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  //     }
-  //   );
-  // }
+  async presentToast(text) {
+    const toast = await this.toastController.create({
+      message: text,
+      position: 'bottom',
+      duration: 8000
+    });
+    toast.present();
+  }
+  formatearNombre(nombre: string) {
+    return nombre.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
+  }
 
   goToPacientesIndex() {
     this.router.navigate(['/index-pacientes']);
