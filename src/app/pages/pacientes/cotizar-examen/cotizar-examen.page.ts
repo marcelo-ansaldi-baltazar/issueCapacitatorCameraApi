@@ -219,6 +219,7 @@ export class CotizarExamenPage implements OnInit {
     });
     toast.present();
   }
+  
   formatearNombre(nombre: string) {
     return nombre.replace(
       /\w\S*/g,
