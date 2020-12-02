@@ -71,8 +71,10 @@ export class CotizarExamenPage implements OnInit {
   private async obtenerFoto(origenFoto: CameraSource) {
     const capturedPhoto = await Camera.getPhoto({ 
       resultType: CameraResultType.Uri, 
-      source: origenFoto, 
-      quality: 100, 
+      source: origenFoto,
+      quality: 100,
+      width: 1024,
+      height: 720,
       saveToGallery: true 
     });
     await this.loadingService.presentLoading();
@@ -179,7 +181,7 @@ export class CotizarExamenPage implements OnInit {
   async confirmIniciarSubida() {
     const alert = await this.alertController.create({
       header: 'Confirmación',
-      message: '¿Desea enviar una cotización online con esta imagen y sus datos de paciente?',
+      message: '¿Desea solicitar una cotización online con esta imagen y sus datos de paciente?',
       buttons: [
         {
           text: 'Cancelar',
