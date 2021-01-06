@@ -34,21 +34,6 @@ export class AtencionesService {
     );
   }
 
-  // getAtencionesMedico(id_persona: string): Observable<any> {
-  //   const url = "https://ripit.cl:8772/atenciones/atencionesMedico";
-  //   // const url = 'https://cheultest.ripit.cl:8770/atenciones/atencionesMedico';
-  //   let params = new HttpParams().set('id_persona', id_persona);
-  //   return this.http.get(url, { params }).pipe(
-  //     map(results => {
-  //       console.log(results);
-  //       return results;
-  //     }),
-  //     catchError(err => {
-  //       return throwError(err);
-  //     })
-  //   );
-  // }
-
   // obtiene los empleados para buscarlos en el ionic-selectable
   getPacientes(id_medico): Observable<any> {
     const url = "https://ripit.cl:8772/atenciones/getPacientes";

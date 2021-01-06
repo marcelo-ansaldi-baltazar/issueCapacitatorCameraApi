@@ -11,9 +11,21 @@ ion-item {
   --ion-background-color:rgba(71, 67, 67, 0.45);
 }
 
-ion-input{
+ion-input {
   --placeholder-color: white;
   --placeholder-opacity: 1;
+}
+
+ion-label {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0;
+  margin: 0;
 }
 
 // ion-content.background {

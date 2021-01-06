@@ -60,6 +60,10 @@ const routes: Routes = [
       role:"ADMIN"
     }
   },
+  {
+    path: 'recuperar-contrasenia',
+    loadChildren: () => import('./pages/recuperar-contrasenia/recuperar-contrasenia.module').then( m => m.RecuperarContraseniaPageModule)
+  },
 ];
 
 @NgModule({

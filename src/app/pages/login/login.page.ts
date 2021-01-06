@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, PopoverController } from '@ionic/angular';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
-import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { PopoverComponent } from '../../components/popover/popover.component';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +13,8 @@ import { Keyboard } from '@ionic-native/keyboard/ngx';
 export class LoginPage implements OnInit {
 
   user = null;
+  contraseniaVisible = false;
+  iconoMostrarContrasenia = 'eye';
   credentials = {
     usuario: '',
     contrasena: '',
@@ -22,17 +24,17 @@ export class LoginPage implements OnInit {
     private router: Router,
     private authService: AuthService,
     private alertController: AlertController,
+    private popoverController: PopoverController,
     private browser: InAppBrowser,
-    private keyboard: Keyboard,
   ) { }
 
   ngOnInit() {
     this.user = this.authService.getUsuario();
   }
 
-  login() {
+  login():void {
     this.authService.login(this.credentials).subscribe(async res => {
-      this.user = this.authService.getUsuario();      
+      this.user = this.authService.getUsuario();
       if (res) {
         //console.log("this.user.PERFIL: " + this.user.PERFIL);
         if (this.user.PERFIL === "MEDICO") this.router.navigateByUrl("/index-medicos");
@@ -47,7 +49,17 @@ export class LoginPage implements OnInit {
     });
   }
 
-  abrirPoliticaPrivacidad() {
+  mostrarContrasenia():void {
+    this.contraseniaVisible = !this.contraseniaVisible;
+    if (this.iconoMostrarContrasenia === 'eye') this.iconoMostrarContrasenia = 'eye-off';
+    else this.iconoMostrarContrasenia = 'eye';
+  }
+
+  goToRecuperarContrasenia():void {
+    this.router.navigateByUrl("/recuperar-contrasenia");
+  }
+
+  abrirPoliticaPrivacidad():void {
     const url = "https://www.laboratorioetcheverry.cl/politicas-de-privacidad-laboratorio-etcheverry/";
     const options: InAppBrowserOptions = {
       zoom: 'no',
@@ -67,6 +79,16 @@ export class LoginPage implements OnInit {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: PopoverComponent,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
   }
 }
 

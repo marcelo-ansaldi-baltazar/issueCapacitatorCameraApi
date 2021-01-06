@@ -91,6 +91,21 @@ export class AuthService {
     );
   }
 
+  recuperarCredenciales(correo): Observable<any> {
+    const url = 'https://ripit.cl:8772/recuperarCredenciales';
+    // const url = 'https://cheultest.ripit.cl:8770/recuperarCredenciales';
+    let body = { correo: correo }
+    return this.http.post(url, body,  {observe: 'response'}).pipe(
+      map(results => {
+        console.log(results);
+        return results;
+      }),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
+
   getUsuario() {
     return this.userData.getValue();
   }

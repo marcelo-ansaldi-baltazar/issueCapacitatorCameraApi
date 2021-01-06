@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-button (click)="goToLogin()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>¿Olvidaste tu contraseña?</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form class="ion-no-padding" #form="ngForm" (ngSubmit)="recuperarCredenciales()">
+    <ion-label position="stacked">Correo electrónico</ion-label>
+    <ion-item lines="none">
+      <ion-input type="email" name="mail" [(ngModel)]="mail"> </ion-input>
+    </ion-item>
+    <p class="ion-text-center" style="font-size:12px"> Te enviaremos un correo con tus credenciales para que puedas iniciar sesión </p>
+    <div class="ion-padding-horizontal">
+      <ion-button style="font-size:12px;" type="submit" shape="round" color="danger" [disabled]="form.invalid" expand="block">RECUPERAR CREDENCIALES</ion-button>
+    </div>
+  </form>
+</ion-content>
+
+<app-footer></app-footer>
