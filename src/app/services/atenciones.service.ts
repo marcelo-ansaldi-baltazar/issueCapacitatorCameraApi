@@ -25,7 +25,7 @@ export class AtencionesService {
     let params = new HttpParams().set('id_persona', id_persona);
     return this.http.get(url, { params }).pipe(
       map(results => {
-        console.log(results);
+        //console.log(results);
         return results;
       }),
       catchError(err => {
