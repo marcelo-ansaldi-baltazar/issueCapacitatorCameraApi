@@ -76,7 +76,7 @@ export class CotizarExamenPage implements OnInit {
       resultType: CameraResultType.Uri, 
       source: origenFoto,
       quality: 100,
-      width: 1024,
+      width: 1280,
       height: 720,
       saveToGallery: true 
     });
