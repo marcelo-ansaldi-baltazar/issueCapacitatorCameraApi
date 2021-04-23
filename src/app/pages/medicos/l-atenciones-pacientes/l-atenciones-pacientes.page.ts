@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { AtencionesService } from 'src/app/services/atenciones.service';
 import { Router } from '@angular/router';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { AlertController } from '@ionic/angular';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { Subscription } from 'rxjs';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-l-atenciones-pacientes',
   templateUrl: './l-atenciones-pacientes.page.html',
   styleUrls: ['./l-atenciones-pacientes.page.scss'],
 })
+
 export class LAtencionesPacientesPage implements OnInit {
 
   user = null;
@@ -26,9 +27,13 @@ export class LAtencionesPacientesPage implements OnInit {
     private atencionesService: AtencionesService,
     private router: Router,
     private browser: InAppBrowser,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.user = this.authService.getUsuario();
     this.atencionesService.getPacientes(this.user.ID_PERSONA).subscribe(res => {
       //console.log(res);
@@ -103,7 +108,6 @@ export class LAtencionesPacientesPage implements OnInit {
   }
 
   abrirPDF(url) {
-    console.log("url: " + url);
     // const options: InAppBrowserOptions = {
     //   zoom: 'no',
     //   location: 'no',
@@ -112,7 +116,17 @@ export class LAtencionesPacientesPage implements OnInit {
     //   hideurlbar: 'yes',
     //   toolbarposition: 'bottom'
     // }
-    this.browser.create(encodeURI(url), '_system', 'location=yes')
+    if (url) this.browser.create(encodeURI(url), '_system', 'location=yes');
+    else this.noTieneArchivoAlert();
+  }
+
+  async noTieneArchivoAlert() {
+    const alert = await this.alertController.create({
+      header: 'Error: Archivo no existe',
+      message: 'No existe archivo PDF asociado a los resultados de esta atención',
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
   goToMedicosIndex() {

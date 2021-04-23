@@ -35,13 +35,13 @@ export class CotizacionesService {
   enviarCotizacion(formData: FormData): Observable<any>  {
     const url = 'https://ripit.cl:8772/cotizacion/agregarCotizacion';
     // const url = 'https://cheultest.ripit.cl:8770/cotizacion/agregarCotizacion';
-    console.log(formData);
+    console.log("ANTES DEL POST");
     return this.http.post(url, formData).pipe(
       map(results => {
         return results;
       }),
       catchError(err => {
-        console.log("errorrrrrrrrr");
+        console.warn("ERROR");
         return throwError(err);
       })
     );

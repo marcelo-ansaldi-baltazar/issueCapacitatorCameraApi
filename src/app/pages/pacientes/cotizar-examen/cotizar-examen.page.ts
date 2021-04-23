@@ -33,6 +33,9 @@ export class CotizarExamenPage implements OnInit {
   ) { }
 
   async ngOnInit() {
+  }
+
+  async ionViewWillEnter() {
     this.user = this.authService.getUsuario();
     await this.cargarFotoGuardada();
   }

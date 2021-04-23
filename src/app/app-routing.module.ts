@@ -61,6 +61,14 @@ const routes: Routes = [
     }
   },
   {
+    path: 'elegir-perfil',
+    loadChildren: () => import('./pages/elegir-perfil/elegir-perfil.module').then( m => m.ElegirPerfilPageModule),
+    canActivate: [AuthGuard],
+    data:{
+      role:"ADMIN"
+    }
+  },
+  {
     path: 'recuperar-contrasenia',
     loadChildren: () => import('./pages/recuperar-contrasenia/recuperar-contrasenia.module').then( m => m.RecuperarContraseniaPageModule)
   },

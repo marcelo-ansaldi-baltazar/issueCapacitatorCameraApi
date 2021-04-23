@@ -5,50 +5,41 @@
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="text-center">Atenciones y resultados</ion-title>
+    <ion-title class="text-center">Atenciones Pacientes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-item class="ion-padding">
     <ion-label>Seleccione Paciente</ion-label>
-    <ionic-selectable
-      item-content
-      headerColor="danger"
-      [(ngModel)]="paciente"
-      itemValueField="ID_PERSONA"
-      itemTextField="NOMBRES"
-      [items]="pacientes"
-      [isMultiple]="false"
-      [canSearch]="true"
-      searchPlaceholder="Buscar por nombre o rut"
-      searchFailText="No hay resultados para esta búsqueda."
-      (onSearch)="buscarPacientes($event)">´
-      
-      <!-- TEMPLATE PARA EL LABEL DE EL (LOS) ITEM(S) SELECCIONADOS -->
+    <ionic-selectable item-content headerColor="danger" [(ngModel)]="paciente" itemValueField="ID_PERSONA"
+      itemTextField="NOMBRES" [items]="pacientes" [isMultiple]="false" [canSearch]="true"
+      searchPlaceholder="Buscar por nombre o rut" searchFailText="No hay resultados para esta búsqueda."
+      (onSearch)="buscarPacientes($event)">
+      <!-- TEMPLATE PARA EL TEXTO Y/O BOTÓN PARA CERRAR LA PESTAÑA DE BUSQUEEA DEL PLUGIN -->
       <ng-template ionicSelectableCloseButtonTemplate>
         <ion-icon name="close-circle"></ion-icon>
       </ng-template>
-      <!-- TEMPLATE PARA EL LABEL DE EL (LOS) ITEM(S) SELECCIONADOS -->
+      <!-- TEMPLATE PARA LOS ITEMS (PACIENTES) DE LA LISTA DE BUSQUEDA DEL PLUGIN -->
       <ng-template ionicSelectableItemTemplate let-empleado="item">
-        {{empleado.RUT}} 
+        {{empleado.RUT}}
         {{empleado.NOMBRE_COMPLETO}}
       </ng-template>
-      <!-- TEMPLATE PARA EL LABEL DE EL (LOS) ITEM(S) SELECCIONADOS -->
-      <ng-template ionicSelectableValueTemplate let-empleado="value"> 
-        {{empleado.RUT}} 
+      <!-- TEMPLATE PARA EL LABEL DEL ITEM (PACIENTE) SELECCIONADO -->
+      <ng-template ionicSelectableValueTemplate let-empleado="value">
+        {{empleado.RUT}}
       </ng-template>
     </ionic-selectable>
   </ion-item>
-  <br>
-
-  <div style="text-align: center !important;">
-    <ion-button *ngIf="paciente" (click)="getAtencionesPaciente()" size="medium" color="danger">Cargar Atenciones</ion-button>
-  </div>
-
-  <br>
   
-  <ion-list class="ion-no-padding">
+  <div *ngIf="paciente" class="ion-padding-horizontal" style="text-align: center !important;">
+    <ion-button (click)="getAtencionesPaciente()" color="danger">
+      <ion-icon slot="start" name="document-text-outline"></ion-icon>
+        Cargar Atenciones
+    </ion-button>
+  </div>
+  
+  <ion-list class="ion-padding-top">
     <ion-item lines="none" *ngFor="let atencion of atenciones">
       <ion-grid fixed>
         <ion-row style="background-color: #e0d9d9; font-size: 12px;">

@@ -1,7 +1,7 @@
 <ion-content class="ion-padding">
   <ion-img width="0" style="padding-left: 5px;" src="/assets/img/logo_empresa2.jpg"></ion-img>
   <div class="ion-text-center">
-    <p style="font-size:14px;"> Bienvenido(a) al sistema de gestión y acceso virtual de examenes clínicos.</p>
+    <p style="font-size:14px;"> Bienvenido(a) al sistema de gestión y acceso virtual de exámenes clínicos.</p>
   </div>
   <form class="ion-padding-horizontal" #form="ngForm" (ngSubmit)="login()">
     <ion-list>
@@ -17,18 +17,18 @@
       <ion-item>
         <ion-input slot="start" [type]="contraseniaVisible ? 'text' : 'password'" name="contrasenia"
           (keyup.enter)="login()" [(ngModel)]="credentials.contrasena"> </ion-input>
-        <ion-icon slot="end" [name]="iconoMostrarContrasenia" (click)="mostrarContrasenia()"></ion-icon>
+        <ion-icon slot="end" size="large" [name]="iconoMostrarContrasenia" (click)="mostrarContrasenia()"></ion-icon>
       </ion-item>
     </ion-list>
-    <ion-button class="ion-padding" expand="full" fill="solid" type="submit" shape="round" color="danger" [disabled]="form.invalid">
-      INICIAR SESIÓN</ion-button>
+    <ion-button class="ion-padding" expand="full" fill="solid" type="submit" shape="round" color="danger"
+      [disabled]="form.invalid"> INICIAR SESIÓN </ion-button>
   </form>
-  <br>  
+  <br>
   <div class="ion-text-center ion-padding-horizontal">
-    <ion-button class="ion-padding" expand="full" fill="outline" shape="round" color="dark" 
+    <ion-button class="ion-padding" expand="full" fill="outline" shape="round" color="dark"
       (click)="goToRecuperarContrasenia()">¿OLVIDASTE TU CONTRASEÑA?</ion-button>
-    <br><br><br><br><br>
-    <ion-button class="ion-padding" fill="clear" style="font-size:10px;font-weight: bolder;" 
+    <br><br><br><br><br><br><br>
+    <ion-button class="ion-padding" fill="clear" style="font-size:10px;font-weight: bolder;"
       (click)="abrirPoliticaPrivacidad()">POLÍTICAS DE PRIVACIDAD</ion-button>
   </div>
 </ion-content>

@@ -22,9 +22,10 @@ export class IndexPacientesPage implements OnInit {
     this.user.NOMBRE = this.formatearNombre(this.user.NOMBRE);
   }
 
-  // ionViewWillEnter(){
-  //   this.user = this.authService.getUsuario();
-  // }
+  ionViewWillEnter() {
+    this.user = this.authService.getUsuario();
+    this.user.NOMBRE = this.formatearNombre(this.user.NOMBRE);
+  }
   
   formatearNombre(nombre: string) {
     return nombre.replace(

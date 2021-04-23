@@ -32,13 +32,22 @@ export class LoginPage implements OnInit {
     this.user = this.authService.getUsuario();
   }
 
-  login():void {
+  login(): void {
     this.authService.login(this.credentials).subscribe(async res => {
       this.user = this.authService.getUsuario();
       if (res) {
         //console.log("this.user.PERFIL: " + this.user.PERFIL);
-        if (this.user.PERFIL === "MEDICO") this.router.navigateByUrl("/index-medicos");
-        else if (this.user.PERFIL === "PACIENTE" || this.user.PERFIL === "ADMINISTRADOR") this.router.navigateByUrl("/index-pacientes");
+        if (this.user.PERFIL === "MEDICO" || this.user.PERFIL === "MEDICO_ASOCIADO") this.router.navigateByUrl("/elegir-perfil");
+        else if (this.user.PERFIL === "ADMINISTRADOR" ||
+          this.user.PERFIL === "SECRETARIA" ||
+          this.user.PERFIL === "PARAMEDICO" ||
+          this.user.PERFIL === "PROFESIONAL" ||
+          this.user.PERFIL === "SUPERVISOR" ||
+          this.user.PERFIL === "EXTERNO" ||
+          this.user.PERFIL === "PACIENTE") this.router.navigateByUrl("/index-pacientes");
+        else console.log("error");
+       // TODO : ALERTA PRA CUANDO EL USUARIO NO ES DE LOS TIPOS QUE CORRESPONDEN A LA APP
+       // (this.user.PERFIL === "CONSULTOR EXTERNO" || this.user.PERFIL === "CONSULTOR CONVENIO" || this.user.PERFIL === "CONVENIO_MULTI_LOCAL") 
       }
       else {
         this.datosErroneosAlert();
@@ -49,17 +58,17 @@ export class LoginPage implements OnInit {
     });
   }
 
-  mostrarContrasenia():void {
+  mostrarContrasenia(): void {
     this.contraseniaVisible = !this.contraseniaVisible;
     if (this.iconoMostrarContrasenia === 'eye') this.iconoMostrarContrasenia = 'eye-off';
     else this.iconoMostrarContrasenia = 'eye';
   }
 
-  goToRecuperarContrasenia():void {
+  goToRecuperarContrasenia(): void {
     this.router.navigateByUrl("/recuperar-contrasenia");
   }
 
-  abrirPoliticaPrivacidad():void {
+  abrirPoliticaPrivacidad(): void {
     const url = "https://www.laboratorioetcheverry.cl/politicas-de-privacidad-laboratorio-etcheverry/";
     const options: InAppBrowserOptions = {
       zoom: 'no',

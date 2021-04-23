@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-index-medicos',
-  templateUrl: './index-medicos.page.html',
-  styleUrls: ['./index-medicos.page.scss'],
+  selector: 'app-elegir-perfil',
+  templateUrl: './elegir-perfil.page.html',
+  styleUrls: ['./elegir-perfil.page.scss'],
 })
-export class IndexMedicosPage implements OnInit {
+export class ElegirPerfilPage implements OnInit {
 
   user = null;
 
@@ -21,7 +21,7 @@ export class IndexMedicosPage implements OnInit {
     this.user.NOMBRE = this.formatearNombre(this.user.NOMBRE);
   }
 
-  ionViewWillEnter() {
+  ionViewWillEnter(){
     this.user = this.authService.getUsuario();
     this.user.NOMBRE = this.formatearNombre(this.user.NOMBRE);
   }
@@ -35,8 +35,12 @@ export class IndexMedicosPage implements OnInit {
     );
   }
 
-  goToAtencionesPacientes() {
-    this.router.navigate(['/l-atenciones-pacientes']);
+  goToMedicosIndex() {
+    this.router.navigate(['/index-medicos']);
+  }
+
+  goToPacientesIndex() {
+    this.router.navigate(['/index-pacientes']);
   }
 
   logout() {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { AtencionesService } from 'src/app/services/atenciones.service';
 import { Router } from '@angular/router';
-import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -10,6 +10,7 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './l-atenciones.page.html',
   styleUrls: ['./l-atenciones.page.scss'],
 })
+
 export class LAtencionesPage implements OnInit {
 
   user = null;
@@ -22,10 +23,12 @@ export class LAtencionesPage implements OnInit {
     private router: Router,
     private browser: InAppBrowser,
     private alertController: AlertController
-    //private modalController: ModalController,
   ) { }
 
   ngOnInit() {
+  }
+  
+  ionViewWillEnter() {
     this.user = this.authService.getUsuario();
     this.atencionesService.getAtencionesPaciente(this.user.ID_PERSONA).subscribe(res => {
       //console.log("res: ", res);
@@ -64,8 +67,8 @@ export class LAtencionesPage implements OnInit {
     //   hideurlbar: 'yes',
     //   toolbarposition: 'bottom'  
     // }
-    if(url) this.browser.create(encodeURI(url), '_system', 'location=yes');
-    else    this.noTieneArchivoAlert();
+    if (url) this.browser.create(encodeURI(url), '_system', 'location=yes');
+    else this.noTieneArchivoAlert();
   }
 
   async noTieneArchivoAlert() {
