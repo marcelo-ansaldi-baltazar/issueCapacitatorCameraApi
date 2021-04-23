@@ -76,8 +76,8 @@ export class CotizarExamenPage implements OnInit {
       resultType: CameraResultType.Uri, 
       source: origenFoto,
       quality: 100,
-      width: 1280,
-      height: 720,
+      width: 1000,
+      height: 800,
       saveToGallery: true 
     });
     await this.loadingService.presentLoading();
